@@ -1,0 +1,310 @@
+--Tables Creation 
+
+
+CREATE TABLE Branch (
+    BranchID INT PRIMARY KEY,
+    BranchName VARCHAR(50),
+    Location VARCHAR(100)
+);
+
+CREATE TABLE Customer (
+    CustomerID INT PRIMARY KEY,
+    BranchID INT,
+    CustomerName VARCHAR(50),
+    AccountNumber VARCHAR(20),
+    CONSTRAINT fk_branch FOREIGN KEY (BranchID) REFERENCES Branch(BranchID)
+);
+
+CREATE TABLE Transaction (
+    TransactionID INT PRIMARY KEY,
+    CustomerID INT,
+    TransactionDate DATE,
+    Amount DECIMAL(10,2),
+    TransactionType VARCHAR(10), -- 'Deposit' or 'Withdrawal'
+    CONSTRAINT fk_customer FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+);
+
+CREATE TABLE Employee (
+    EmployeeID INT PRIMARY KEY,
+    BranchID INT,
+    EmployeeName VARCHAR(50),
+    Position VARCHAR(50),
+    CONSTRAINT fk_branch_emp FOREIGN KEY (BranchID) REFERENCES Branch(BranchID)
+);
+
+CREATE TABLE Account (
+    AccountNumber VARCHAR(20) PRIMARY KEY,
+    CustomerID INT,
+    Balance DECIMAL(10,2),
+    CONSTRAINT fk_customer_acc FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+);
+
+CREATE TABLE Loan (
+    LoanID INT PRIMARY KEY,
+    CustomerID INT,
+    LoanAmount DECIMAL(10,2),
+    LoanDate DATE,
+    CONSTRAINT fk_customer_loan FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+);
+
+
+-- Data insertion 
+
+
+-- Branch table
+INSERT INTO Branch (BranchID, BranchName, Location)
+VALUES
+    (1, 'Main Branch', 'New York'),
+    (2, 'Downtown Branch', 'New York'),
+    (3, 'Uptown Branch', 'New York'),
+    (4, 'West Branch', 'Los Angeles'),
+    (5, 'East Branch', 'Los Angeles');
+
+
+-- Customer table
+INSERT INTO Customer (CustomerID, BranchID, CustomerName, AccountNumber)
+VALUES
+    (1, 1, 'John Smith', 'ACC1001'),
+    (2, 1, 'Emily Johnson', 'ACC1002'),
+    (3, 2, 'Michael Brown', 'ACC1003'),
+    (4, 3, 'Emma Davis', 'ACC1004'),
+    (5, 4, 'Daniel Wilson', 'ACC1005'),
+    (6, 5, 'Olivia Martinez', 'ACC1006'),
+    (7, 5, 'Sophia Anderson', 'ACC1007'),
+    (8, 4, 'Matthew Taylor', 'ACC1008'),
+    (9, 3, 'Ella Thomas', 'ACC1009'),
+    (10, 2, 'Aiden Jackson', 'ACC1010'),
+    (11, 1, 'Liam Brown', 'ACC1011'),
+    (12, 1, 'Mia Johnson', 'ACC1012'),
+    (13, 2, 'Noah Wilson', 'ACC1013'),
+    (14, 3, 'Isabella Taylor', 'ACC1014'),
+    (15, 4, 'Sophia White', 'ACC1015'),
+    (16, 5, 'James Martinez', 'ACC1016'),
+    (17, 5, 'Alexander Anderson', 'ACC1017'),
+    (18, 4, 'Oliver Thomas', 'ACC1018'),
+    (19, 3, 'Charlotte Jackson', 'ACC1019'),
+    (20, 2, 'Amelia Harris', 'ACC1020');
+
+-- Transaction table
+INSERT INTO Transaction (TransactionID, CustomerID, TransactionDate, Amount, TransactionType)
+VALUES
+    (1, 1, '2024-02-19', 500.00, 'Deposit'),
+    (2, 1, '2024-02-19', 50.00, 'Withdrawal'),
+    (3, 2, '2024-02-19', 1000.00, 'Deposit'),
+    (4, 3, '2024-02-19', 200.00, 'Withdrawal'),
+    (5, 4, '2024-02-19', 300.00, 'Deposit'),
+    (6, 5, '2024-02-19', 150.00, 'Withdrawal'),
+    (7, 6, '2024-02-19', 800.00, 'Deposit'),
+    (8, 7, '2024-02-19', 100.00, 'Withdrawal'),
+    (9, 8, '2024-02-19', 400.00, 'Deposit'),
+    (10, 9, '2024-02-19', 250.00, 'Withdrawal'),
+    (11, 10, '2024-02-19', 600.00, 'Deposit'),
+    (12, 10, '2024-02-19', 200.00, 'Withdrawal'),
+    (13, 11, '2024-02-19', 700.00, 'Deposit'),
+    (14, 12, '2024-02-19', 50.00, 'Withdrawal'),
+    (15, 13, '2024-02-19', 1200.00, 'Deposit'),
+    (16, 14, '2024-02-19', 300.00, 'Withdrawal'),
+    (17, 15, '2024-02-19', 400.00, 'Deposit'),
+    (18, 16, '2024-02-19', 150.00, 'Withdrawal'),
+    (19, 17, '2024-02-19', 1000.00, 'Deposit'),
+    (20, 18, '2024-02-19', 200.00, 'Withdrawal');
+
+-- Employee table
+INSERT INTO Employee (EmployeeID, BranchID, EmployeeName, Position)
+VALUES
+    (1, 1, 'Alice Johnson', 'Branch Manager'),
+    (2, 1, 'Bob Williams', 'Teller'),
+    (3, 2, 'Catherine Brown', 'Branch Manager'),
+    (4, 3, 'David Jones', 'Teller'),
+    (5, 4, 'Ethan Garcia', 'Branch Manager'),
+    (6, 5, 'Fiona Martinez', 'Teller'),
+    (7, 1, 'Grace Davis', 'Teller'),
+    (8, 2, 'Henry Lee', 'Teller'),
+    (9, 3, 'Isabella Wilson', 'Teller'),
+    (10, 4, 'Jack Moore', 'Teller'),
+    (11, 5, 'Kate Clark', 'Teller'),
+    (12, 1, 'Liam Taylor', 'Teller'),
+    (13, 2, 'Mason Rodriguez', 'Teller'),
+    (14, 3, 'Nora Martinez', 'Teller'),
+    (15, 4, 'Olivia Smith', 'Teller'),
+    (16, 5, 'Patrick Johnson', 'Teller'),
+    (17, 1, 'Quinn Brown', 'Teller'),
+    (18, 2, 'Ryan Wilson', 'Teller'),
+    (19, 3, 'Sophia Thomas', 'Teller'),
+    (20, 4, 'Tyler Harris', 'Teller');
+
+-- Account table
+INSERT INTO Account (AccountNumber, CustomerID, Balance)
+VALUES
+    ('ACC1001', 1, 2500.00),
+    ('ACC1002', 2, 1500.00),
+    ('ACC1003', 3, 3000.00),
+    ('ACC1004', 4, 2000.00),
+    ('ACC1005', 5, 1800.00),
+    ('ACC1006', 6, 3500.00),
+    ('ACC1007', 7, 2700.00),
+    ('ACC1008', 8, 2200.00),
+    ('ACC1009', 9, 1900.00),
+    ('ACC1010', 10, 4000.00),
+    ('ACC1011', 11, 5000.00),
+    ('ACC1012', 12, 600.00),
+    ('ACC1013', 13, 4500.00),
+    ('ACC1014', 14, 1500.00),
+    ('ACC1015', 15, 800.00),
+    ('ACC1016', 16, 2000.00),
+    ('ACC1017', 17, 700.00),
+    ('ACC1018', 18, 1000.00),
+    ('ACC1019', 19, 2500.00),
+    ('ACC1020', 20, 3500.00);
+
+-- Loan table
+INSERT INTO Loan (LoanID, CustomerID, LoanAmount, LoanDate)
+VALUES
+    (1, 1, 10000.00, '2023-07-15'),
+    (2, 2, 5000.00, '2023-10-20'),
+    (3, 4, 7000.00, '2023-05-08'),
+    (4, 5, 12000.00, '2023-09-12'),
+    (5, 7, 8000.00, '2023-11-25'),
+    (6, 9, 6000.00, '2023-08-03'),
+    (7, 10, 9000.00, '2023-12-30'),
+    (8, 11, 11000.00, '2023-04-18'),
+    (9, 12, 3000.00, '2023-06-22'),
+    (10, 14, 4000.00, '2023-02-14'),
+    (11, 16, 7000.00, '2023-01-09'),
+    (12, 18, 6000.00, '2023-03-05'),
+    (13, 20, 8000.00, '2023-08-17');
+
+
+- - Queries 
+
+
+#  Find the customers who have made the highest total deposits in the past month
+
+SELECT 
+    c.CustomerID, 
+    c.CustomerName, 
+    SUM(t.Amount) AS TotalDeposits
+FROM 
+    Customer c
+JOIN 
+    Transaction t ON c.CustomerID = t.CustomerID
+WHERE 
+    t.TransactionType = 'Deposit'
+    AND t.TransactionDate >= DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)
+GROUP BY 
+    c.CustomerID, 
+    c.CustomerName
+ORDER BY 
+    TotalDeposits DESC
+LIMIT 5;
+
+
+#  Calculate the average balance of accounts in each branch
+
+SELECT 
+    b.BranchID,
+    b.BranchName,
+    AVG(a.Balance) AS AverageBalance
+FROM 
+    Branch b
+JOIN 
+    Customer c ON b.BranchID = c.BranchID
+JOIN 
+    Account a ON c.CustomerID = a.CustomerID
+GROUP BY 
+    b.BranchID,
+    b.BranchName;
+
+
+#  List the top 3 branches with the highest number of withdrawals
+
+SELECT 
+    b.BranchID,
+    b.BranchName,
+    COUNT(t.TransactionID) AS NumWithdrawals
+FROM 
+    Branch b
+JOIN 
+    Customer c ON b.BranchID = c.BranchID
+JOIN 
+    Transaction t ON c.CustomerID = t.CustomerID
+WHERE 
+    t.TransactionType = 'Withdrawal'
+GROUP BY 
+    b.BranchID,
+    b.BranchName
+ORDER BY 
+    NumWithdrawals DESC
+LIMIT 3;
+
+
+#  Identify customers who have a loan but have not made any deposits
+
+SELECT 
+    c.CustomerID,
+    c.CustomerName
+FROM 
+    Customer c
+JOIN 
+    Loan l ON c.CustomerID = l.CustomerID
+LEFT JOIN 
+    Transaction t ON c.CustomerID = t.CustomerID
+WHERE 
+    t.TransactionType = 'Deposit'
+    AND t.TransactionDate IS NULL;
+
+
+#  Find the employee who has served the most number of customers
+
+SELECT 
+    e.EmployeeID,
+    e.EmployeeName,
+    COUNT(DISTINCT c.CustomerID) AS NumCustomersServed
+FROM 
+    Employee e
+JOIN 
+    Transaction t ON e.BranchID = t.BranchID
+JOIN 
+    Customer c ON t.CustomerID = c.CustomerID
+GROUP BY 
+    e.EmployeeID,
+    e.EmployeeName
+ORDER BY 
+    NumCustomersServed DESC
+LIMIT 1;
+
+
+#  Retrieve the total number of withdrawals and deposits for a particular branch on a given day
+
+SELECT
+    COUNT(CASE WHEN t.TransactionType = 'Withdrawal' THEN 1 END) AS NumWithdrawals,
+    COUNT(CASE WHEN t.TransactionType = 'Deposit' THEN 1 END) AS NumDeposits,
+    SUM(CASE WHEN t.TransactionType = 'Withdrawal' THEN t.Amount ELSE 0 END) AS TotalWithdrawalAmount,
+    SUM(CASE WHEN t.TransactionType = 'Deposit' THEN t.Amount ELSE 0 END) AS TotalDepositAmount
+FROM
+    Transaction t
+    JOIN Customer c ON t.CustomerID = c.CustomerID
+    JOIN Branch b ON c.BranchID = b.BranchID
+WHERE
+    b.BranchName = 'YourBranchName'
+    AND t.TransactionDate = '2024-02-19';
+
+#  Retrieve the total amount withdrawn and deposited by each customer for a given branch
+
+SELECT
+    c.CustomerID,
+    c.CustomerName,
+    SUM(CASE WHEN t.TransactionType = 'Withdrawal' THEN t.Amount ELSE 0 END) AS TotalWithdrawalAmount,
+    SUM(CASE WHEN t.TransactionType = 'Deposit' THEN t.Amount ELSE 0 END) AS TotalDepositAmount
+FROM
+    Transaction t
+    JOIN Customer c ON t.CustomerID = c.CustomerID
+    JOIN Branch b ON c.BranchID = b.BranchID
+WHERE
+    b.BranchName = 'YourBranchName'
+    AND t.TransactionDate = '2024-02-19'
+GROUP BY
+    c.CustomerID, c.CustomerName;
+
+
+
