@@ -1,1 +1,3 @@
 # Bank-Database-System
+
+-The project developed for managing banking operations is designed to oversee the routine activities at branch levels,which include tracking withdrawals, deposits, and interactions with employees. It integrates six key tables - branches,customers, transactions, employees, accounts, and loans. Through the application of SQL queries that leverage joins,aggregate operations, and conditional filtering, the system adeptly manages the extraction of detailed reports onbranch-specific operations, such as summarizing daily deposit and withdrawal totals and assessing employee contributions. This architecture enhances the ability to administer and evaluate the workings of bank branches, promoting effective operational oversight.
