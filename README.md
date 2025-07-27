@@ -29,7 +29,7 @@ This project simulates a full-fledged **Banking System** using **MySQL**, coveri
 
 ## 📊 ER Diagram
 
-![ER Diagram](bank_er_diagram.png)
+![ER Diagram](bank%20er%20diagram%20.png)
 
 ---
 
